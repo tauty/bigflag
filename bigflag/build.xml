@@ -7,22 +7,27 @@
                    
      tetz                                                                
      ====================================================================== -->
-<project name="project" default="default">
+<project name="project" default="mkjar">
     <description>
             description
     </description>
 
-    <!-- ================================= 
-          target: default              
-         ================================= -->
-    <target name="default" depends="depends" description="description">
-        
+	<property name="version" value="0.1.0" />
+	<property name="src" location="./src" />
+	<property name="classes" location="./classes" />
+	
+    <target name="mkjar">
+    	<mkdir dir="${classes}"/>
+    	<antcall target="jar"/>
+        <delete dir="${classes}"/>
+    </target>
+	
+    <target name="jar" depends="compile">
+    	<jar basedir="${classes}" jarfile="bigflag-${version}.jar" />
     </target>
 
-    <!-- - - - - - - - - - - - - - - - - - 
-          target: depends                      
-         - - - - - - - - - - - - - - - - - -->
-    <target name="depends">
+    <target name="compile">
+    	<javac srcdir="${src}" destdir="${classes}"/>
     </target>
 
 </project>
